@@ -1,0 +1,144 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing-xl);
+  animation: fadeIn var(--transition-slow) ease-out;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  max-width: 560px;
+}
+
+/* Animated orb */
+.orbContainer {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.3;
+  filter: blur(20px);
+  animation: pulseOrb 3s ease-in-out infinite;
+}
+
+.orbInner {
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.8;
+  animation: pulseOrb 3s ease-in-out infinite 0.3s;
+}
+
+@keyframes pulseOrb {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.6;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -0.025em;
+}
+
+.gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Suggestion Cards */
+.suggestions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+  max-width: 560px;
+  width: 100%;
+}
+
+@media (max-width: 560px) {
+  .suggestions {
+    grid-template-columns: 1fr;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+}
+
+.suggestionCard {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-glass);
+  text-align: left;
+  transition: all var(--transition-fast);
+  animation: fadeInUp var(--transition-slow) ease-out both;
+}
+
+.suggestionCard:hover {
+  border-color: var(--accent-primary);
+  background: rgba(124, 92, 252, 0.06);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.suggestionCard:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.suggestionIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.suggestionText {
+  flex: 1;
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.arrow {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all var(--transition-fast);
+}
+
+.suggestionCard:hover .arrow {
+  opacity: 1;
+  transform: translateX(0);
+}

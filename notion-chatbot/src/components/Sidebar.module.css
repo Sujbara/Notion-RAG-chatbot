@@ -1,0 +1,224 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: transform var(--transition-normal);
+  z-index: var(--z-sidebar);
+  overflow: hidden;
+}
+
+/* Mobile behavior */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brandText {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.closeBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.closeBtn:hover {
+  background: var(--surface-glass-hover);
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .closeBtn {
+    display: flex;
+  }
+}
+
+/* New Chat Button */
+.newChatWrapper {
+  padding: 0 var(--spacing-sm) var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.newChatBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-default);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.newChatBtn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(124, 92, 252, 0.06);
+}
+
+.newChatBtn:active {
+  transform: scale(0.98);
+}
+
+/* History */
+.history {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.dateGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.dateLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.chatList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chatListItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.chatItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.chatItem:hover {
+  background: var(--surface-glass-hover);
+  color: var(--text-primary);
+}
+
+.chatItem.active {
+  background: var(--surface-glass-active);
+  color: var(--text-primary);
+}
+
+.chatIcon {
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.chatTitle {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 24px; /* Space for delete button */
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+  opacity: 0;
+  z-index: 2;
+}
+
+.chatListItem:hover .deleteBtn {
+  opacity: 1;
+}
+
+.chatItem.active + .deleteBtn {
+  opacity: 1;
+}
+
+.deleteBtn:hover {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff5050;
+}
+
+/* Footer */
+.footer {
+  flex-shrink: 0;
+  padding: var(--spacing-md);
+}
+
+.footerDivider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin-bottom: var(--spacing-md);
+}
+
+.footerText {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}

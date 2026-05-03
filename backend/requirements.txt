@@ -1,0 +1,12 @@
+pillow>=10.4.0
+fastapi[standard]
+ollama
+notion-client
+requests
+llama-index
+chromadb
+llama-index-vector-stores-chroma
+llama-index-llms-ollama
+llama-index-embeddings-ollama
+llama-index-llms-google-genai
+python-dotenv

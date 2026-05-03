@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Notion RAG Chatbot
 
-## Getting Started
+A professional-grade RAG (Retrieval-Augmented Generation) pipeline that turns your private Notion notes into an interactive, intelligent chatbot. Features multiple reasoning modes, including a "Thinking Mode" powered by agentic workflows.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    A[Notion API] -->|Fetch| B(fetch_notion_data.py)
+    B -->|Raw JSON| C(notionNotes.py)
+    C -->|Clean Text| D[cleaned_notion_notes.txt]
+    D -->|Index| E(LlamaIndex + ChromaDB)
+    E -->|Retrieve| F[RAG Pipeline]
+    F -->|Serve| G[FastAPI Backend]
+    G -->|WebSocket/Stream| H[Next.js Frontend]
+    
+    subgraph "Inference Engines"
+    F -.->|Local| I[Ollama / Gemma]
+    F -.->|Cloud| J[Google Gemini]
+    end
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Multi-Source Ready**: Built to handle Notion pages and attached `.ipynb` notebooks.
+- **Thinking Mode**: Uses an `AgentWorkflow` to reason through complex queries before answering.
+- **Fast Mode**: Direct vector search for quick information retrieval.
+- **Persistent Storage**: Uses ChromaDB to avoid re-indexing unchanged notes.
+- **Real-time Streaming**: Fluid UI with WebSocket and Server-Sent Events support.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Setup
 
-## Learn More
+### 1. Prerequisites
+- [Ollama](https://ollama.com/) (for local LLM support)
+- [Node.js](https://nodejs.org/) (v18+)
+- [Python](https://www.python.org/) (3.10+)
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Backend Setup
+1. Navigate to `backend/`.
+2. Create a virtual environment: `python -m venv venv`.
+3. Install dependencies: `pip install -r requirements.txt`.
+4. Configure `.env` (use `.env.example` as a template):
+   - `NOTION_TOKEN`: Your Notion Internal Integration Token.
+   - `NOTION_PAGE_ID`: The ID of the page you want to index.
+   - `GOOGLE_API_KEY`: (Optional) For Gemini support.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Data Ingestion
+Run the following to pull your data from Notion:
+```bash
+python notionNotes.py
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Frontend Setup
+1. Navigate to `notion-chatbot/`.
+2. Install dependencies: `npm install`.
+3. Start the dev server: `npm run dev`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛡️ Privacy & Security
+This project is designed with privacy in mind. **Your Notion data is never uploaded to a third-party server** (unless you explicitly use the Gemini cloud model). All indexing and vector storage happen locally in the `chroma_db` folder.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+MIT License. Feel free to use and contribute!
